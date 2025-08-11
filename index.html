@@ -1,11 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>我的第一个网页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hannah的个人主页</title>
 </head>
+
 <body>
-    <h1>Hello World!</h1>
-    <p>这是我第一个上传到 GitHub 的网页。</p>
+    <button id="btn-en">English</button>
+    <button id="btn-zh">中文</button>
+
+    <nav>
+        <a href="#">首页</a>
+        <a href="#">关于我</a>
+        <a href="#">项目</a>
+        <a href="#">兴趣爱好</a>
+        <a href="#">文章</a>
+        <a href="#">联系方式</a>
+    </nav>
+
+    <section id="intro">
+        <h1 data-en="Hi, I'm Hannah!" data-zh="你好,我是Hannah!">Hi,I'm Hannah!</h1>
+        <p data-en="A coding enthusiast, trail runner, and triathlon dreamer." data-zh="计算机小能手，越野跑爱好者，铁人三项梦想家。">
+        计算机小能手，越野跑爱好者，铁人三项梦想家。
+        </p>
+
+    </section>
+
+    <section id="projects">
+        <h2 data-zh="项目介绍" data-en="Projects">项目介绍</h2>
+        <p data-zh="这是我做过的几个项目，欢迎了解。" data-en="Here are some projects I've worked on.">这是我做过的几个项目，欢迎了解。</p>
+    </section>
+
+    <section id="hobbies">
+        <h2 data-en="Hobbies" data-zh="兴趣爱好">兴趣爱好</h2>
+        <ul>
+            <li data-zh="越野跑与马拉松" data-en="Trail running and marathons">越野跑与马拉松</li>
+            <li data-zh="攀岩与网球" data-en="Climbing and tennis">攀岩与网球</li>
+            <li data-zh="巴西柔术" data-en="Brazilian Jiu-Jitsu">巴西柔术</li>
+            <li data-zh="脱口秀" data-en="Stand-up comedy">脱口秀</li>
+        </ul>
+    </section>
+
+    
+
+    <script>
+        function setLanguage(lang){
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            document.querySelectorAll('[data-en]').forEach(el=> {
+                const text = el.getAttribute(`data-${lang}`);
+                if(text !== null) el.textContent = text;
+            });
+
+            try{
+                localStorage.setItem('site_lang', lang);
+            }catch(e){
+
+            }
+        }
+
+        document.getElementById('btn-en').addEventListener('click',() => setLanguage('en'));
+        document.getElementById('btn-zh').addEventListener('click',() => setLanguage('zh'));
+    
+        (function initLang(){
+            const saved = localStorage.getItem('site_lang')|| 'zh';
+            setLanguage(saved);
+        })();
+    </script>
 </body>
+
 </html>
